@@ -19,8 +19,8 @@ app.use(
 );
 
 app.use('/api', require('./src/api/api.controller'));
-engine.use('/', (req, res, next) => {});
-provider.use('/', (req, res, next) => {});
+engine.use('', require('./src/engine/engine.controller'));
+provider.use('', require('./src/provider/accounting.controller'));
 
 app.server.listen(port, () => {
   console.log(`App Server start on => ${port} with process id ${process.pid}`);
@@ -32,6 +32,6 @@ engine.server.listen(engine_port, () => {
 });
 provider.server.listen(provider_port, () => {
   console.log(
-    `Enginer server start on => ${provider_port} with process id ${process.pid}`
+    `Provider server start on => ${provider_port} with process id ${process.pid}`
   );
 });
