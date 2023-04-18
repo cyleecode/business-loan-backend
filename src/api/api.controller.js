@@ -3,8 +3,13 @@ const router = express.Router();
 const apiService = require('./api.service');
 
 router.get('/application', appId);
+router.get('/balance', balanceSheet);
+router.post('/decision', requestOutcome);
 
 module.exports = router;
+
+function balanceSheet(req, res, next) {}
+function requestOutcome(req, res, next) {}
 
 function appId(req, res, next) {
   const appid = req.query?.appid;

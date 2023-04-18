@@ -20,7 +20,7 @@ function balanceSheetProvider() {
         receive += chunk;
       });
       res.on('end', () => {
-        resolv(receive);
+        resolv(JSON.parse(receive));
       });
     });
     req.end();
@@ -46,7 +46,7 @@ function decisionEngine({ name, year, profitOrLost, preAssessment }) {
         receive += chunk;
       });
       res.on('end', () => {
-        resolv(receive);
+        resolv(JSON.parse(receive));
       });
     });
     req.end();
