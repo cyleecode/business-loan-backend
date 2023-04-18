@@ -17,6 +17,16 @@ app.use(
     limit: '2000kb',
   })
 );
+provider.use(
+  bodyParser.json({
+    limit: '2000kb',
+  })
+);
+engine.use(
+  bodyParser.json({
+    limit: '2000kb',
+  })
+);
 
 app.use('/api', require('./src/api/api.controller'));
 engine.use('', require('./src/engine/engine.controller'));
