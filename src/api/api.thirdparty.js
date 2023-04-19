@@ -27,8 +27,24 @@ function balanceSheetProvider() {
   });
 }
 
-function decisionEngine({ name, year, profitOrLost, preAssessment }) {
-  const postData = JSON.stringify({ name, year, profitOrLost, preAssessment });
+function decisionEngine({
+  name,
+  phone,
+  address,
+  company,
+  year,
+  profitOrLost,
+  preAssessment,
+}) {
+  const postData = JSON.stringify({
+    name,
+    phone,
+    address,
+    company,
+    year,
+    profitOrLost,
+    preAssessment,
+  });
   return new Promise((resolv) => {
     const options = {
       hostname: '127.0.0.1',
@@ -49,6 +65,7 @@ function decisionEngine({ name, year, profitOrLost, preAssessment }) {
         resolv(JSON.parse(receive));
       });
     });
+    req.write(postData);
     req.end();
   });
 }

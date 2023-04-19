@@ -9,7 +9,15 @@ router.post('/decision', requestOutcome);
 module.exports = router;
 
 function balanceSheet(req, res, next) {}
-function requestOutcome(req, res, next) {}
+
+function requestOutcome(req, res, next) {
+  apiService
+    .requestOutcome(req.body)
+    .then((v) => {
+      res.status(200).json(v);
+    })
+    .catch((err) => next(err));
+}
 
 function appId(req, res, next) {
   const appid = req.query?.appid;
