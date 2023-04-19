@@ -24,7 +24,7 @@ function randomBalanceSheet() {
       year: cyear,
       month: cmonth,
       profitOrLoss: getRandomNumberInRange(-10000, 10000),
-      assestsValue: getRandomNumberInRange(0, 10000),
+      assetsValue: getRandomNumberInRange(0, 10000),
     });
   }
   return sheet;
