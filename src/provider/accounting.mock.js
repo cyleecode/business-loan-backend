@@ -11,11 +11,18 @@ module.exports = {
 function randomBalanceSheet() {
   const sheet = [];
   const year = 2000 + Math.floor(Math.random() * 23);
-  const month = 1 + Math.floor(Math.random() * 11);
+  const month = 12 + Math.floor(Math.random() * 12);
   for (let i = month; i > 0; i--) {
+    let cyear = year;
+    let cmonth = month;
+    if (month > 12) {
+      cmonth -= 12;
+      cyear += 1;
+    }
+
     sheet.push({
-      year: year,
-      month: i,
+      year: cyear,
+      month: cmonth,
       profitOrLoss: getRandomNumberInRange(-10000, 10000),
       assestsValue: getRandomNumberInRange(0, 10000),
     });
