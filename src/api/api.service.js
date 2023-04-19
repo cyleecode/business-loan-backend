@@ -48,6 +48,10 @@ async function fetchBalance() {
 }
 
 async function requestOutcome({ personalDetails, loan, balanceSheet }) {
+  console.log('Personal details: ', personalDetails);
+  console.log('Applied loan: ', loan);
+  console.log('balance sheet: ', balanceSheet);
+
   let preAssessment = '20';
   let totalProfitOrLost = 0;
   let yearEstablished = 0;
