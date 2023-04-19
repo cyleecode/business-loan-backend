@@ -31,7 +31,7 @@ async function getAppId({ appid }) {
   }
 }
 
-async function fetchBalance() {
+async function fetchBalance(provider, company) {
   return await thirdPartyService
     .balanceSheetProvider()
     .then((v) => {
@@ -40,6 +40,18 @@ async function fetchBalance() {
       } else {
         return new MResponse(false);
       }
+    })
+    .catch((err) => {
+      console.log(err);
+      return new MResponse(false);
+    });
+}
+
+async function fetchBalance(provider, company) {
+  return await thirdPartyService
+    .balanceSheetProvider(provider, company)
+    .then((v) => {
+      return new MResponse(true, v);
     })
     .catch((err) => {
       console.log(err);

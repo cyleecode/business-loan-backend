@@ -8,7 +8,17 @@ router.post('/decision', requestOutcome);
 
 module.exports = router;
 
-function balanceSheet(req, res, next) {}
+function balanceSheet(req, res, next) {
+  const provider = req.query.provider;
+  const company = req.query.company;
+
+  apiService
+    .fetchBalance(provider, company)
+    .then((v) => {
+      res.status(200).json(v);
+    })
+    .catch((err) => next(err));
+}
 
 function requestOutcome(req, res, next) {
   apiService

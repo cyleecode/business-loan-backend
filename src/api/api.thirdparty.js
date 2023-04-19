@@ -3,8 +3,12 @@
  */
 
 const http = require('http');
-function balanceSheetProvider() {
+function balanceSheetProvider(provider, company) {
   return new Promise((resolv) => {
+    const params = {
+      provider,
+      company,
+    };
     const options = {
       hostname: '127.0.0.1',
       port: process.env.PROVIDER_PORT,
@@ -23,6 +27,7 @@ function balanceSheetProvider() {
         resolv(JSON.parse(receive));
       });
     });
+    req.write(JSON.stringify(params));
     req.end();
   });
 }
