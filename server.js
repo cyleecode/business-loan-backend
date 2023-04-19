@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const provider = express();
 const engine = express();
+const cors = require('cors');
 const port = process.env.PORT ? process.env.PORT : 4000;
 const provider_port = process.env.PROVIDER_PORT;
 const engine_port = process.env.ENGINE_PORT;
@@ -27,7 +28,7 @@ engine.use(
     limit: '2000kb',
   })
 );
-
+app.use(cors('*'));
 app.use('/api', require('./src/api/api.controller'));
 engine.use('', require('./src/engine/engine.controller'));
 provider.use('', require('./src/provider/accounting.controller'));
