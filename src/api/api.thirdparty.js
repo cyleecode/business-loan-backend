@@ -24,7 +24,12 @@ function balanceSheetProvider(provider, company) {
         receive += chunk;
       });
       res.on('end', () => {
-        resolv(JSON.parse(receive));
+        const data = JSON.parse(receive);
+        if (data.status) {
+          resolv(data.data);
+        } else {
+          resolv([]);
+        }
       });
     });
     req.write(JSON.stringify(params));
@@ -67,7 +72,12 @@ function decisionEngine({
         receive += chunk;
       });
       res.on('end', () => {
-        resolv(JSON.parse(receive));
+        const data = JSON.parse(receive);
+        if (data.status) {
+          resolv(data.data);
+        } else {
+          resolv([]);
+        }
       });
     });
     req.write(postData);

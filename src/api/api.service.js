@@ -33,7 +33,7 @@ async function getAppId({ appid }) {
 
 async function fetchBalance(provider, company) {
   return await thirdPartyService
-    .balanceSheetProvider()
+    .balanceSheetProvider(provider, company)
     .then((v) => {
       if (v.status) {
         return new MResponse(true, v.data);
