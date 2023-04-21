@@ -4,7 +4,7 @@ const apiService = require('./api.service');
 
 router.get('/application', appId);
 router.get('/balance', balanceSheet);
-router.post('/decision', requestOutcome);
+router.post('/submit', requestOutcome);
 
 module.exports = router;
 

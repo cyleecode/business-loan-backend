@@ -74,9 +74,7 @@ function decisionEngine({
       res.on('end', () => {
         const data = JSON.parse(receive);
         if (data.status) {
-          resolv(data.data);
-        } else {
-          resolv([]);
+          resolv(data);
         }
       });
     });

@@ -1,7 +1,7 @@
 const { MResponse } = require('../model/MResponse');
 
 function decisionEngine() {
-  return fityfity() ? new MResponse(true) : new MResponse(false);
+  return fityfity() ? new MResponse(true, true) : new MResponse(true, false);
 }
 
 module.exports = {
