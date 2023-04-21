@@ -14,8 +14,8 @@ function randomBalanceSheet() {
   const month = 12 + Math.floor(Math.random() * 12);
   for (let i = month; i > 0; i--) {
     let cyear = year;
-    let cmonth = month;
-    if (month > 12) {
+    let cmonth = i;
+    if (i > 12) {
       cmonth -= 12;
       cyear += 1;
     }
