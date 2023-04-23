@@ -1,5 +1,5 @@
 # Use an official Node.js base image with a specific version
-FROM node:14
+FROM node:14-alpine
 
 RUN mkdir -p /home/node/backend
 
@@ -16,7 +16,7 @@ RUN npm ci
 COPY . .
 
 # Expose a specific port that the application will listen on
-EXPOSE 4000 4001 4002
+EXPOSE 4000
 
 # Define the command to start the application
 CMD ["node", "server.js"]
