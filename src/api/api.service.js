@@ -1,4 +1,6 @@
-const { MResponse } = require('../model/MResponse');
+const {
+  MResponse,
+} = require('../model/MResponse');
 const thirdPartyService = require('./api.thirdparty');
 
 module.exports = {
@@ -13,7 +15,8 @@ const db = {};
 async function setAppId() {
   let appid;
   while (!appid) {
-    const newid = generateRandomString(8);
+    const newid =
+      generateRandomString(8);
     if (!db[newid]) {
       db[newid] = new Date();
       appid = newid;
@@ -31,12 +34,21 @@ async function getAppId({ appid }) {
   }
 }
 
-async function fetchBalance(provider, company) {
+async function fetchBalance(
+  provider,
+  company
+) {
   return await thirdPartyService
-    .balanceSheetProvider(provider, company)
+    .balanceSheetProvider(
+      provider,
+      company
+    )
     .then((v) => {
       if (v.status) {
-        return new MResponse(true, v.data);
+        return new MResponse(
+          true,
+          v.data
+        );
       } else {
         return new MResponse(false);
       }
@@ -47,9 +59,15 @@ async function fetchBalance(provider, company) {
     });
 }
 
-async function fetchBalance(provider, company) {
+async function fetchBalance(
+  provider,
+  company
+) {
   return await thirdPartyService
-    .balanceSheetProvider(provider, company)
+    .balanceSheetProvider(
+      provider,
+      company
+    )
     .then((v) => {
       return new MResponse(true, v);
     })
@@ -59,20 +77,37 @@ async function fetchBalance(provider, company) {
     });
 }
 
-async function requestOutcome({ personalDetails, loan, balanceSheet }) {
-  console.log('Personal details: ', personalDetails);
+async function requestOutcome({
+  personalDetails,
+  loan,
+  balanceSheet,
+}) {
+  console.log(
+    'Personal details: ',
+    personalDetails
+  );
   console.log('Applied loan: ', loan);
-  console.log('balance sheet: ', balanceSheet);
+  console.log(
+    'balance sheet: ',
+    balanceSheet
+  );
 
   let preAssessment = '20';
   let totalProfitOrLost = 0;
-  let yearEstablished = 0;
+  let yearEstablished;
   let averageAsset = 0;
   let submit = {};
 
   //personal details
-  const { firstname, lastname, phone, address, company } = personalDetails;
-  submit.name = firstname + ' ' + lastname;
+  const {
+    firstname,
+    lastname,
+    phone,
+    address,
+    company,
+  } = personalDetails;
+  submit.name =
+    firstname + ' ' + lastname;
   submit.company = company;
   submit.phone = phone;
   submit.address = address;
@@ -80,30 +115,51 @@ async function requestOutcome({ personalDetails, loan, balanceSheet }) {
   //rules
   //info in last 12 month
   for (let i = 0; i < 12; i++) {
-    const { year, profitOrLost, assetsValue } = balanceSheet[i];
+    const {
+      year,
+      profitOrLoss,
+      assetsValue,
+    } = balanceSheet[i];
     //get smallest year
-    if (yearEstablished < year) yearEstablished = year;
+    if (yearEstablished === undefined) {
+      yearEstablished = year;
+    } else if (yearEstablished > year) {
+      yearEstablished = year;
+    }
     //sum of totalProfitOrLost and asset
-    totalProfitOrLost += profitOrLost;
+    totalProfitOrLost += profitOrLoss;
     averageAsset += assetsValue;
   }
 
   //if profit greater than zero
-  const isProfit = totalProfitOrLost ? true : false;
+  const isProfit =
+    totalProfitOrLost > 0
+      ? true
+      : false;
   //if average asset greater than loan
-  const isAssetGreaterLoan = averageAsset / 12 > loan;
+  const isAssetGreaterLoan =
+    averageAsset / 12 > loan;
 
   //business details
   submit.year = yearEstablished;
-  submit.profitOrLost = totalProfitOrLost;
-  submit.preAssessment = isProfit ? '60' : preAssessment;
-  submit.preAssessment = isAssetGreaterLoan ? '100' : submit.preAssessment;
+  submit.profitOrLost =
+    totalProfitOrLost;
+  submit.preAssessment = isProfit
+    ? '60'
+    : preAssessment;
+  submit.preAssessment =
+    isAssetGreaterLoan
+      ? '100'
+      : submit.preAssessment;
 
   return await thirdPartyService
     .decisionEngine(submit)
     .then((v) => {
       if (v.status) {
-        return new MResponse(true, v.data);
+        return new MResponse(
+          true,
+          v.data
+        );
       } else {
         return new MResponse(false);
       }
@@ -121,8 +177,11 @@ function generateRandomString(length) {
   let randomString = '';
 
   for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    randomString += characters[randomIndex];
+    const randomIndex = Math.floor(
+      Math.random() * characters.length
+    );
+    randomString +=
+      characters[randomIndex];
   }
 
   return randomString;
